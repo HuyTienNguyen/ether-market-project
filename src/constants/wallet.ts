@@ -1,4 +1,4 @@
 export enum Wallet {
-    METAMASK = 1,
-    BINANCE = 2
+  METAMASK = 1,
+  BINANCE = 2,
 }

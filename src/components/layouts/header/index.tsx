@@ -1,4 +1,5 @@
 import RButton from "../../../elements/button";
+import ConnectWalletButton from "../../connect-wallet-button/connect-wallet-button";
 import Menu from "../menu";
 import style from "./style.module.scss";
 import { Col, Row } from "antd";
@@ -24,9 +25,7 @@ const Header = () => {
           </div>
         </Col>
         <Col flex={2} className="gutter-row">
-          <div>
-            <RButton type="primary"> Connect Wallet </RButton>
-          </div>
+          <ConnectWalletButton />
         </Col>
       </Row>
     </div>
