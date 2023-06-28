@@ -1,18 +1,33 @@
+import { StarOutlined } from "@ant-design/icons";
 import { useWeb3React } from "@web3-react/core";
-import { getBalanceAddress } from "../../utils/web3";
+import WalletInformation from "../connect-wallet-button/wallet-information/wallet-information";
+import style from "./style.module.scss";
 
 const Home = () => {
   const { account } = useWeb3React();
-  const balanceWallet = account ? getBalanceAddress(account) : null;
   return (
     <>
-      <h1>Chao mung ban den project ethers-market-project </h1>
-      {account && (
-        <div>
-          <h1>Dia chi vi cua ban: {account}</h1>
-          <h1>So du tai khoan: {}</h1>
+      <div className={style.home}>
+        <div className={style.img_avatar}>
+          <img src="/images/avataaars.svg" alt="..." />
         </div>
-      )}
+        <h1 className={style.text_uppercase}>Start Blockchain</h1>
+        <div className={style.divider_custom}>
+          <div className={style.divider_custom__line}></div>
+          <StarOutlined
+            style={{ fontSize: "40px" }}
+            className={style.divider_custom__icon}
+          />
+          <div className={style.divider_custom__line}></div>
+        </div>
+        <div className={style.subheading}>
+          {account ? (
+            <WalletInformation />
+          ) : (
+            <p>Graphic Artist - Web Designer - Illustrator</p>
+          )}
+        </div>
+      </div>
     </>
   );
 };

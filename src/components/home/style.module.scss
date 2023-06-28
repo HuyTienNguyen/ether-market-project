@@ -1,0 +1,46 @@
+.home {
+  margin: 0 auto;
+
+  .img_avatar {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 15rem;
+      vertical-align: middle;
+    }
+  }
+
+  .text_uppercase {
+    text-align: center;
+    font-size: 2.75rem;
+    line-height: 2.75rem;
+    text-transform: uppercase;
+  }
+
+  .divider_custom {
+    margin: 1.25rem 0 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__line {
+      width: 100%;
+      max-width: 7rem;
+      height: 0.25rem;
+      background-color: #2c3e50;
+      border-radius: 1rem;
+      border-color: #2c3e50;
+    }
+
+    &__icon {
+      margin: 0 20px;
+    }
+  }
+
+  .subheading{
+    display: flex;
+    justify-content: center;
+    font-size: 1.25rem;
+  }
+}

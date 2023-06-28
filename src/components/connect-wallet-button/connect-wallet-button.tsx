@@ -1,10 +1,9 @@
-import RButton from "../../elements/button";
-import { useState } from "react";
-import ConnectorOptions from "./connector-options/connector-options";
 import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
+import RButton from "../../elements/button";
 import { RootState } from "../../stores";
-import { hideModalConnect, showModalConnect } from "../../stores/modal/slice";
+import { showModalConnect } from "../../stores/modal/slice";
+import ConnectorOptions from "./connector-options/connector-options";
 
 const ConnectWalletButton = () => {
   const { openModalConnect } = useSelector(
