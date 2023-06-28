@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import homeReducers from "./home/slice";
+import modalConnectReducer from './modal/slice';
 
 const rootReducer = combineReducers({
-  home: homeReducers,
+  modalConnectGlobal: modalConnectReducer
 });
 
 export default rootReducer;

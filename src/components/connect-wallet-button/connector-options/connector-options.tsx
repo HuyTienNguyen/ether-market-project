@@ -1,54 +1,57 @@
 import { Modal } from "antd";
 import style from "./style.module.scss";
 import useConnectWallets from "./useConnectWallet";
+import { useWeb3React } from "@web3-react/core";
+import { SUPPORTED_WALLETS, Wallet } from "../../../constants/wallet";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../stores";
+import { hideModalConnect } from "../../../stores/modal/slice";
 
-type ConnectorOptionsProps = {
-  isShowModal: boolean;
-  onCloseModal: any;
-};
+const ConnectorOptions = () => {
+  const { openModalConnect } = useSelector(
+    (state: RootState) => state.modalConnectGlobal
+  );
+  const dispatch = useDispatch();
 
-const ConnectorOptions = (props: ConnectorOptionsProps) => {
-  const { isShowModal, onCloseModal } = props;
-  const { account, activate, deactivate, active, error } = useWeb3React();
+  const { activate } = useWeb3React();
   const [handleConnectWallet] = useConnectWallets();
+
+  const handleCloseModal = () => {
+    dispatch(hideModalConnect());
+  };
 
   return (
     <>
       <Modal
         title="Connect Wallet"
-        open={isShowModal}
-        onCancel={onCloseModal}
+        open={openModalConnect}
+        onCancel={handleCloseModal}
         footer={false}
         className={style.modal_connector_options}
         maskStyle={{ backdropFilter: "blur(1px)" }}
       >
         <div className={style.connector_options}>
-          <div
-            className={style.connector_options__wallet}
-            onClick={handleConnectWallet}
-          >
-            <img
-              width={50}
-              height={50}
-              src="/images/MetaMask_Fox.svg.png"
-              alt=""
-              className={style.logo}
-            />
-            <span>Metamask</span>
-          </div>
-          <div
-            className={style.connector_options__wallet}
-            onClick={handleConnectWallet}
-          >
-            <img
-              width={50}
-              height={50}
-              src="/images/Binance_Logo.png"
-              alt=""
-              className={style.logo}
-            />
-            <span>Binance</span>
-          </div>
+          {Object.keys(SUPPORTED_WALLETS).map((walletKey) => {
+            const walletInfo = SUPPORTED_WALLETS[walletKey];
+            return (
+              <>
+                <div
+                  className={style.connector_options__wallet}
+                  key={walletKey}
+                  onClick={() => handleConnectWallet(walletInfo.id, activate)}
+                >
+                  <img
+                    width={50}
+                    height={50}
+                    src={walletInfo.iconURL}
+                    alt=""
+                    className={style.logo}
+                  />
+                  <span>{walletInfo.name}</span>
+                </div>
+              </>
+            );
+          })}
         </div>
       </Modal>
     </>

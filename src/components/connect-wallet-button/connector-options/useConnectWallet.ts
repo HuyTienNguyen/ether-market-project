@@ -1,24 +1,47 @@
-import { useState } from "react";
 import Web3 from "web3";
 import { Wallet } from "../../../constants/wallet";
-
-declare global {
-  interface Window {
-    ethereum?: any;
-    BinanceChain?: any;
-  }
-}
+import { useAppDispatch } from "../../../hooks/hooks";
+import {
+  injectedConnector,
+  supportedChainIdsArray,
+} from "../../../services/connectors";
+import { hideModalConnect } from "../../../stores/modal/slice";
 
 function useConnectWallets() {
-  const web3 = new Web3(window.ethereum);
-
-  const connectWallet = async (typeWallet: number, active: any) => {
+  const dispatch = useAppDispatch();
+  const handleConnectWallet = async (typeWallet: number, activate: any) => {
     switch (typeWallet) {
       case Wallet.METAMASK:
         if (window.ethereum) {
+          const chainIdCurrent =
+            (await getChainIdCurrent(Wallet.METAMASK)) || 1;
+          const isChainIdExists =
+            supportedChainIdsArray.includes(chainIdCurrent);
+          const connector = injectedConnector(
+            Wallet.METAMASK,
+            !isChainIdExists ? chainIdCurrent : null
+          );
+          activate(connector);
+          dispatch(hideModalConnect());
+        } else {
+          alert("Metamask not detected");
         }
         break;
       case Wallet.BINANCE:
+        if (window.BinanceChain) {
+          const chainIdCurrent = (await getChainIdCurrent(Wallet.BINANCE)) || 1;
+          const isChainIdExists =
+            supportedChainIdsArray.includes(chainIdCurrent);
+          const connector = injectedConnector(
+            Wallet.BINANCE,
+            !isChainIdExists ? chainIdCurrent : null
+          );
+          activate(connector);
+          dispatch(hideModalConnect());
+        } else {
+          alert("Binance not detected");
+        }
+
         break;
       default:
         alert("Vi nay chua duoc ho tro");
@@ -51,7 +74,7 @@ function useConnectWallets() {
     return chainId;
   }
 
-  return [connectWallet];
+  return [handleConnectWallet];
 }
 
 export default useConnectWallets;
