@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
-import { getBalanceAddress } from "../../../utils/web3";
 import style from "./style.module.scss";
+import { getBalanceAddress } from "../../utils/web3";
 
 const WalletInformation = () => {
   const { account } = useWeb3React();

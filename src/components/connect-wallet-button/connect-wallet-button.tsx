@@ -10,17 +10,16 @@ const ConnectWalletButton = () => {
     (state: RootState) => state.modalConnectGlobal
   );
   const dispatch = useDispatch();
-  const { account, deactivate } = useWeb3React();
 
   const handleShowModal = () => {
-    account ? deactivate() :  dispatch(showModalConnect());
+    dispatch(showModalConnect());
   };
 
   return (
     <>
       <div>
         <RButton type="primary" onClick={handleShowModal}>
-          {account ? "Disconect Wallet" : "Connect Wallet"}
+          Connect Wallet
         </RButton>
       </div>
       {openModalConnect && <ConnectorOptions />}

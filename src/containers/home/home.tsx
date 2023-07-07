@@ -1,7 +1,10 @@
 import { StarOutlined } from "@ant-design/icons";
 import { useWeb3React } from "@web3-react/core";
-import WalletInformation from "../connect-wallet-button/wallet-information/wallet-information";
+import { useState } from "react";
+import SignMessage from "../../components/sign-message/sign-message";
+import WalletInformation from "../../components/wallet-information/wallet-information";
 import style from "./style.module.scss";
+import RecoverSignature from "../../components/recover-signature/recover-signature";
 
 const Home = () => {
   const { account } = useWeb3React();
@@ -25,6 +28,13 @@ const Home = () => {
             <WalletInformation />
           ) : (
             <p>Graphic Artist - Web Designer - Illustrator</p>
+          )}
+        </div>
+        <div className={style.signMessage}>
+          {account && (
+            <>
+              <SignMessage /> <RecoverSignature />
+            </>
           )}
         </div>
       </div>

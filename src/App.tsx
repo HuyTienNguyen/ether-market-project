@@ -5,6 +5,7 @@ import PageHome from "./pages/home";
 import { Provider } from "react-redux";
 import store from "./stores";
 import { ethers } from "ethers";
+import { RecoilRoot } from 'recoil';
 
 declare global {
   interface Window {
@@ -24,7 +25,9 @@ function App() {
     <>
       <Provider store={store}>
         <Web3ReactProvider getLibrary={getLibrary}>
-          <PageHome />
+          <RecoilRoot>
+            <PageHome />
+          </RecoilRoot>
         </Web3ReactProvider>
       </Provider>
     </>

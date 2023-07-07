@@ -1,5 +1,5 @@
-import Home from "../../components/home"
-import MainLayoutContainer from "../../components/layouts/main-layout-container"
+import Home from "../../containers/home/home";
+import MainLayoutContainer from "../../layout/main-layout-container";
 
 const PageHome = () => {
     return (
