@@ -1,23 +1,29 @@
-import React from 'react';
 import { useWeb3React } from "@web3-react/core";
-import { useRecoilState } from "recoil";
-import { EXAMPLE_SIGNED_MESSAGE } from "../../constants/wallet";
+import { Form, Input } from "antd";
+import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import RButton from "../../elements/button";
-import { signatureState } from "./signatureState";
-import style from "./style.module.scss";
+import { showMessage } from "../../elements/message";
+import { signMessageSuccess } from "../../stores/auth/slice";
 import { signMessage } from "../../utils/web3";
-import { openNotificationWithIcon } from "../../utils/notification";
-import { notification } from 'antd';
+import style from "./style.module.scss";
 
 const SignMessage = () => {
+  const [message, setMessage] = useState("");
   const { library } = useWeb3React();
-  const [signature, setSignature] = useRecoilState(signatureState);
-  const [api, contextHolder] = notification.useNotification();
-
+  const [signature, setSignature] = useState("");
+  const dispatch = useDispatch();
   const handleSignMessage = async () => {
-    const signatures = await signMessage(EXAMPLE_SIGNED_MESSAGE, library);
-    if (signatures) 
+    const signatures = await signMessage(message, library);
+    if (signatures) {
+      showMessage('Sign Message Successfully!', 'success');
       setSignature(signatures);
+      dispatch(signMessageSuccess({messsage: message, signature: signatures}));
+    }
+  };
+
+  const handleChangeMessage = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
   };
 
   return (
@@ -28,7 +34,14 @@ const SignMessage = () => {
         </div>
       )}
       <div>
-        {contextHolder}
+        <Form.Item
+          label="Message"
+          name="message"
+          rules={[{ message: "Please input your message!" }]}
+          style={{ width: "500px" }}
+        >
+          <Input onChange={handleChangeMessage} value={message} />
+        </Form.Item>
         <RButton
           type="primary"
           onClick={handleSignMessage}

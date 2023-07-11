@@ -2,10 +2,10 @@ import { Modal } from "antd";
 import style from "./style.module.scss";
 import useConnectWallets from "./useConnectWallet";
 import { useWeb3React } from "@web3-react/core";
-import { SUPPORTED_WALLETS, Wallet } from "../../../constants/wallet";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../stores";
-import { hideModalConnect } from "../../../stores/modal/slice";
+import { RootState } from "../../stores";
+import { hideModalConnect } from "../../stores/modal/slice";
+import { SUPPORTED_WALLETS } from "../../constants/wallet";
 
 const ConnectorOptions = () => {
   const { openModalConnect } = useSelector(

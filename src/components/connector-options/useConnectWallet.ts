@@ -1,11 +1,8 @@
 import Web3 from "web3";
-import { Wallet } from "../../../constants/wallet";
-import { useAppDispatch } from "../../../hooks/hooks";
-import {
-  injectedConnector,
-  supportedChainIdsArray,
-} from "../../../services/connectors";
-import { hideModalConnect } from "../../../stores/modal/slice";
+import { useAppDispatch } from "../../hooks/hooks";
+import { Wallet } from "../../constants/wallet";
+import { injectedConnector, supportedChainIdsArray } from "../../services/connectors";
+import { hideModalConnect } from "../../stores/modal/slice";
 
 function useConnectWallets() {
   const dispatch = useAppDispatch();
