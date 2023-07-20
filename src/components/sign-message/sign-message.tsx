@@ -1,12 +1,12 @@
 import { useWeb3React } from "@web3-react/core";
-import { Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import RButton from "../../elements/button";
-import { showMessage } from "../../elements/message";
 import { signMessageSuccess } from "../../stores/auth/slice";
 import { signMessage } from "../../utils/web3";
 import style from "./style.module.scss";
+import { showMessage } from "../elements/message";
 
 const SignMessage = () => {
   const [message, setMessage] = useState("");
@@ -16,9 +16,11 @@ const SignMessage = () => {
   const handleSignMessage = async () => {
     const signatures = await signMessage(message, library);
     if (signatures) {
-      showMessage('Sign Message Successfully!', 'success');
+      showMessage("Sign Message Successfully!", "success");
       setSignature(signatures);
-      dispatch(signMessageSuccess({messsage: message, signature: signatures}));
+      dispatch(
+        signMessageSuccess({ messsage: message, signature: signatures })
+      );
     }
   };
 
@@ -35,20 +37,24 @@ const SignMessage = () => {
       )}
       <div>
         <Form.Item
-          label="Message"
+          className={style.formInput}
+          label={<span className={style.custom_label}>Message</span>}
           name="message"
           rules={[{ message: "Please input your message!" }]}
-          style={{ width: "500px" }}
+          style={{ maxWidth: "600px" }}
         >
           <Input onChange={handleChangeMessage} value={message} />
         </Form.Item>
-        <RButton
+        {/* <RButton
           type="primary"
           onClick={handleSignMessage}
           className={style.buttonSign}
         >
           Sign Message
-        </RButton>
+        </RButton> */}
+        <Button type="primary" onClick={handleSignMessage} className={style.buttonSign}>
+          Sign Message
+        </Button>
       </div>
     </div>
   );

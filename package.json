@@ -5,10 +5,12 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@binance-chain/bsc-connector": "^1.0.0",
+    "@openzeppelin/contracts": "^4.9.2",
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/bignumber.js": "^5.0.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.36",
     "@types/react": "^18.2.13",
@@ -56,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "bignumber.js": "^9.0.0",
     "source-map-loader": "^4.0.1"
   }
 }

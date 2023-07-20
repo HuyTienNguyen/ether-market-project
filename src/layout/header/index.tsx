@@ -7,7 +7,6 @@ import DisconnectWalletButton from "../../components/disconnect-wallet-button/di
 
 const Header = () => {
   const { account } = useWeb3React();
-  console.log("11111")
   return (
     <div className={style.header}>
       <Row gutter={30} align="middle">

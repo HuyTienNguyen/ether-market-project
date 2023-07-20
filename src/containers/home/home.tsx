@@ -1,16 +1,13 @@
 import { StarOutlined } from "@ant-design/icons";
 import { useWeb3React } from "@web3-react/core";
-import { useState } from "react";
+import RecoverSignature from "../../components/recover-signature/recover-signature";
 import SignMessage from "../../components/sign-message/sign-message";
+import TransferToken from "../../components/tranfers-token/transfer-token";
 import WalletInformation from "../../components/wallet-information/wallet-information";
 import style from "./style.module.scss";
-import RecoverSignature from "../../components/recover-signature/recover-signature";
-import { useSelector } from "react-redux";
-import { RootState } from "../../stores";
 
 const Home = () => {
   const { account } = useWeb3React();
-  const { isSignatureValid } = useSelector((state: RootState) => state.auth);
   return (
     <>
       <div className={style.home}>
@@ -33,8 +30,13 @@ const Home = () => {
             <p>Graphic Artist - Web Designer - Illustrator</p>
           )}
         </div>
-        <div className={style.signMessage}>{account && <SignMessage />}</div>
-        <div>{isSignatureValid && <RecoverSignature />}</div>
+        <div className={style.signMessage}>{<SignMessage />}</div>
+        <div>
+          <RecoverSignature />
+        </div>
+        <div>
+          <TransferToken />
+        </div>
       </div>
     </>
   );

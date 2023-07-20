@@ -1,9 +1,10 @@
 import { useWeb3React } from "@web3-react/core";
 import { Button, Form, Input } from "antd";
 import { useSelector } from "react-redux";
-import { showMessage } from "../../elements/message";
 import { RootState } from "../../stores";
 import { checkSignature } from "../../utils/web3";
+import { useEffect } from "react";
+import { showMessage } from "../elements/message";
 
 const RecoverSignature = () => {
   const { account } = useWeb3React();
@@ -26,6 +27,7 @@ const RecoverSignature = () => {
   return (
     <div>
       <Form
+        key={recoverSignInfo?.signature}
         name="basic"
         labelAlign="left"
         labelCol={{ flex: "120px" }}
