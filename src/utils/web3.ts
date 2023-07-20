@@ -5,6 +5,9 @@ import { ERC20_ABI } from "./erc20";
 import Web3 from "web3";
 import { showMessage } from "./notification";
 const contractAddress = "0x8beD6f85Fd09892F372238970ad53bE9C66da4be";
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = provider.getSigner();
+const contract = new ethers.Contract(contractAddress, ERC20_ABI, signer);
 
 export const injected = new InjectedConnector({
   supportedChainIds: supportedChainIdsArray,
@@ -24,11 +27,7 @@ export const getBalanceAddress = async (
   return balanceInEther;
 };
 
-export const getSymbolERC20 = async (
-): Promise<string> => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, ERC20_ABI, signer);
+export const getSymbolERC20 = async (): Promise<string> => {
   return await contract.symbol();
 };
 
@@ -59,10 +58,6 @@ export const transferERC = async (
   toAddress: string,
   amount: string
 ): Promise<boolean> => {
-  // Tạo một instance của smart contract ERC20
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, ERC20_ABI, signer);
   const decimals = 6;
   const amountValue = ethers.utils.parseUnits(amount, decimals);
 
@@ -99,9 +94,6 @@ export const transferNative = async (
   toAddress: string,
   amount: string
 ): Promise<boolean> => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  // Số dư của tài khoản hiện tại
   const balance = await signer.getBalance();
   const value = ethers.utils.parseEther(amount);
   if (balance.lt(value)) {
