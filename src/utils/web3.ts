@@ -24,6 +24,14 @@ export const getBalanceAddress = async (
   return balanceInEther;
 };
 
+export const getSymbolERC20 = async (
+): Promise<string> => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, ERC20_ABI, signer);
+  return await contract.symbol();
+};
+
 export const checkSignature = (
   account: string,
   signature: string,
@@ -57,13 +65,15 @@ export const transferERC = async (
   const contract = new ethers.Contract(contractAddress, ERC20_ABI, signer);
   const decimals = 6;
   const amountValue = ethers.utils.parseUnits(amount, decimals);
-  
-  console.log("amount value"+amountValue);
 
   console.log("Smart contract balance:");
   const balanceSM = await contract.balanceOf(signer.getAddress());
-  console.log("balanceSM laf "+ balanceSM);
+  console.log("balanceSM laf " + balanceSM);
   console.log("amountValue: " + amountValue);
+
+  // Lấy symbol của smart contract ERC20
+  const symbol = await contract.symbol();
+  console.log("Symbol: ", symbol);
 
   console.log("Transfer token");
   const tx = await contract.transfer(toAddress, amountValue);
