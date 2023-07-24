@@ -4,17 +4,16 @@ import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import RButton from "../../elements/button";
 import { signMessageSuccess } from "../../stores/auth/slice";
-import { signMessage } from "../../utils/web3";
 import style from "./style.module.scss";
 import { showMessage } from "../elements/message";
+import { signMessage } from "../../services/connectors";
 
 const SignMessage = () => {
   const [message, setMessage] = useState("");
-  const { library } = useWeb3React();
   const [signature, setSignature] = useState("");
   const dispatch = useDispatch();
   const handleSignMessage = async () => {
-    const signatures = await signMessage(message, library);
+    const signatures = await signMessage(message);
     if (signatures) {
       showMessage("Sign Message Successfully!", "success");
       setSignature(signatures);

@@ -6,8 +6,6 @@ export enum Wallet {
 const METAMASK_ICON_URL = "/images/MetaMask_Fox.svg.png";
 const BINANCE_ICON_URL = "/images/Binance_Logo.png";
 
-export const EXAMPLE_SIGNED_MESSAGE = 'Signature';
-
 type WalletInfo = {
   connector?: any;
   id: number;

@@ -1,9 +1,14 @@
 import { Input } from "antd";
 import { useState } from "react";
-import { transferERC, transferNative } from "../../utils/web3";
 import RButton from "../elements/button";
 import style from "./style.module.scss";
 import { showMessage } from "../elements/message";
+import { transferERC } from "../../functions/contract";
+import { transferNative } from "../../functions/wallet";
+import {
+  TRACSACION_FAILED_MESSAGE,
+  TRACSACION_SUCCESS_MESSAGE,
+} from "../../constants/message";
 
 const TransferToken = () => {
   const [recipient, setRecipient] = useState("");
@@ -12,15 +17,15 @@ const TransferToken = () => {
   const handleTransferERCToken = async () => {
     const transaction = transferERC(recipient, amount);
     (await transaction)
-      ? showMessage("Transaction successfully!", "success")
-      : showMessage("Transaction failed!", "error");
+      ? showMessage(TRACSACION_SUCCESS_MESSAGE, "success")
+      : showMessage(TRACSACION_FAILED_MESSAGE, "error");
   };
 
   const handleTransferNativeToken = async () => {
     const transaction = transferNative(recipient, amount);
     (await transaction)
-      ? showMessage("Transaction successfully!", "success")
-      : showMessage("Transaction failed!", "error");
+      ? showMessage(TRACSACION_SUCCESS_MESSAGE, "success")
+      : showMessage(TRACSACION_FAILED_MESSAGE, "error");
   };
 
   const handleChangeAmount = (e: any) => {

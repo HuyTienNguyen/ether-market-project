@@ -2,9 +2,9 @@ import { useWeb3React } from "@web3-react/core";
 import { Button, Form, Input } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores";
-import { checkSignature } from "../../utils/web3";
 import { useEffect } from "react";
 import { showMessage } from "../elements/message";
+import { checkSignature } from "../../services/connectors";
 
 const RecoverSignature = () => {
   const { account } = useWeb3React();
