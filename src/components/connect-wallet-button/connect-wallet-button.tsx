@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import RButton from "../../elements/button";
 import { RootState } from "../../stores";
 import { showModalConnect } from "../../stores/modal/slice";
 import ConnectorOptions from "../connector-options/connector-options";
+import RButton from "../elements/button";
 
 const ConnectWalletButton = () => {
   const { openModalConnect } = useSelector(

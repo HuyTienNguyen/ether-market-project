@@ -1,12 +1,9 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import style from "./style.module.scss";
-import {
-  getBalanceERC20,
-  getNameERC20,
-  getSymbolERC20,
-} from "../../functions/contract";
-import { getBalanceAddress } from "../../functions/wallet";
+import { ABI_ERC20, CONTRACT_ADDRESS_ERC20 } from "../../constants/token";
+import { getTokenBalance, getTokenInfo } from "../../utils/tokens";
+import { getBalanceWallet } from "../../utils/wallet";
 
 const WalletInformation = () => {
   const { account } = useWeb3React();
@@ -18,18 +15,21 @@ const WalletInformation = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (account) {
-        const balanceCurrent = await getBalanceAddress(account);
-        setBalance(balanceCurrent);
+        const balanceWallet = await getBalanceWallet(account);
+        setBalance(balanceWallet);
 
-        const symbolERC = await getSymbolERC20();
-        setSymbol(symbolERC);
+        const { symbol, name } = await getTokenInfo(
+          CONTRACT_ADDRESS_ERC20 ?? "",
+          ABI_ERC20
+        );
+        setNameERC(name);
+        setSymbol(symbol);
 
-        const nameERC = await getNameERC20();
-        setNameERC(nameERC);
-
-        getBalanceERC20().then((balance) => {
-          setBalanceERC(balance);
-        });
+        const balanceERC = await getTokenBalance(
+          ABI_ERC20,
+          CONTRACT_ADDRESS_ERC20 ?? ""
+        );
+        setBalanceERC(balanceERC);
       }
     };
     fetchData();

@@ -1,12 +1,10 @@
-import { useWeb3React } from "@web3-react/core";
 import { Button, Form, Input } from "antd";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import RButton from "../../elements/button";
 import { signMessageSuccess } from "../../stores/auth/slice";
+import { showMessage } from "../../utils/notification";
 import style from "./style.module.scss";
-import { showMessage } from "../elements/message";
-import { signMessage } from "../../services/connectors";
+import { signMessage } from "../../utils/wallet";
 
 const SignMessage = () => {
   const [message, setMessage] = useState("");

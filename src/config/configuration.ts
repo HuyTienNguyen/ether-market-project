@@ -1,4 +1,4 @@
-import { ERC20_ABI } from "../utils/erc20";
+import { ERC20_ABI } from "../abis";
 
 export const setup = () => {
   const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS ?? "";
