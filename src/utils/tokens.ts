@@ -1,11 +1,12 @@
-import { ethers } from "ethers";
+import { ABI_ERC20 } from "../constants/token";
 import { getContract } from "./contracts";
 import { getSigner } from "./wallet";
-import { parseERCToken, parseEther } from "./web3";
+import { parseERCToken } from "./web3";
 
 interface TokenInfo {
   symbol: string | null;
   name: string | null;
+  decimals: string | null;
 }
 
 export async function getTokenInfo(
@@ -14,15 +15,16 @@ export async function getTokenInfo(
 ): Promise<TokenInfo> {
   const contract = await getContract(tokenABI, contractAddress);
   try {
-    const [symbol, name] = await Promise.all([
+    const [symbol, name, decimals] = await Promise.all([
       contract.symbol(),
       contract.name(),
+      contract.decimals(),
     ]);
 
-    return { symbol, name };
+    return { symbol, name, decimals };
   } catch (error) {
     console.error("Error fetching token information:", error);
-    return { symbol: null, name: null };
+    return { symbol: null, name: null, decimals: null };
   }
 }
 
@@ -36,16 +38,15 @@ export const getTokenBalance = async (
   return balanceSM.toNumber();
 };
 
-export const transferERC = async (
-  abi: any,
+export const transferERC20 = async (
   contractAddress: string,
   toAddress: string,
-  amount: string,
-  decimals?: number
+  amount: string
 ): Promise<boolean> => {
-  const contract = await getContract(abi, contractAddress);
+  const contract = await getContract(ABI_ERC20, contractAddress);
   const signer = await getSigner();
-  const amountValue = parseERCToken(amount, decimals);
+  const { decimals } = await getTokenInfo(contractAddress, ABI_ERC20);
+  const amountValue = parseERCToken(amount, Number(decimals));
   const gasPrice = await signer.provider.getGasPrice();
   const gasLimit = await contract.estimateGas.transfer(toAddress, amountValue);
   const tx = await contract.transfer(toAddress, amountValue);

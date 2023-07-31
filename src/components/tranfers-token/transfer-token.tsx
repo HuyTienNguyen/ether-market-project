@@ -7,17 +7,16 @@ import {
   TRACSACION_SUCCESS_MESSAGE,
 } from "../../constants/message";
 import { showMessage } from "../../utils/notification";
-import { transferERC } from "../../utils/tokens";
 import { ABI_ERC20, CONTRACT_ADDRESS_ERC20 } from "../../constants/token";
 import { transferNative } from "../../utils/wallet";
+import { transferERC20 } from "../../utils/tokens";
 
 const TransferToken = () => {
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
 
   const handleTransferERCToken = async () => {
-    const transaction = transferERC(
-      ABI_ERC20,
+    const transaction = transferERC20(
       CONTRACT_ADDRESS_ERC20 ?? "",
       recipient,
       amount
